@@ -25,6 +25,7 @@ $ source venv/bin/activate
 $ pip install --editable .
 
 $ export FLASK_APP=demo.demo
+$ export FLASK_DEBUG=1
 $ flask run --host 0.0.0.0 --port 5000
 
 $ python -m unittest discover

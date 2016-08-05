@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+
+{% block title %}Echo{% endblock %}
+
+{% block body %}
+<form id="getter" method="GET">
+<input name="txt" id="txt">
+<input type="submit" value="Send">
+</form>
+<div id="get_response">{{ echo }}</div>
+{% endblock %}
+
