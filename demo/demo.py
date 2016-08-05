@@ -1,24 +1,9 @@
-from flask import Flask
+from flask import Flask, render_template
 app = Flask(__name__)
 
 @app.route("/")
 def home():
-    return """
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport"
-     content="width=device-width, initial-scale=1, user-scalable=yes">
-  <title>Python Test site</title>
-</head>
-<body>
-<ul>
-  <li><a href="/echo">Echo</a></li>
-</ul>
-</body>
-</html>
-"""
+	return render_template('index.html')
 
 #@app.route("/echo")
 #def echo():

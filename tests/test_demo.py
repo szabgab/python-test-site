@@ -4,10 +4,12 @@ import unittest
 class TestDemo(unittest.TestCase):
     def setUp(self):
         self.app = demo.demo.app.test_client()
+        demo.demo.app.config['TESTING'] = True
 
     def test_main(self):
         rv = self.app.get('/')
         #print(rv.data)
+        assert '<!DOCTYPE html>' in rv.data
         self.assertEqual(rv.status, '200 OK')
         self.assertRegexpMatches(rv.data, r'<title>Python Test site</title>')
         self.assertRegexpMatches(rv.data, r'<a href="/echo">Echo</a>')

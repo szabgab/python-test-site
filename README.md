@@ -3,7 +3,8 @@ Web site to play with various test tools.
 
 Parts of the site are:
 
-* A pure HTML site where the whole thing is generated on the server.
+* /     - a pure HTML page where the whole thing is generated on the server.
+* /echo - a form that echos back the text one typed in using either a GET or a POST request
 * An application using a JSON API.
 * Redirection
 * Login with username/password
