@@ -3,10 +3,20 @@
 {% block title %}Echo{% endblock %}
 
 {% block body %}
+
 <form id="getter" method="GET">
 <input name="txt" id="txt">
 <input type="submit" value="Send">
 </form>
-<div id="get_response">{{ echo }}</div>
+<div id="get_response">{{ get_echo }}</div>
+
+
+<form id="postter" method="POST">
+<input name="msg" id="msg">
+<input type="submit" value="Send">
+</form>
+<div id="post_response">{{ post_echo }}</div>
+
+
 {% endblock %}
 

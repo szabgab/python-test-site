@@ -23,13 +23,28 @@ class TestDemo(unittest.TestCase):
         assert '<div id="get_response"></div>' in rv.data
         assert 'You said:' not in rv.data
 
-    def test_echo(self):
+        assert '<form id="postter" method="POST">' in rv.data
+        assert '<div id="post_response"></div>' in rv.data
+        assert 'You posted:' not in rv.data
+
+
+    def test_get_echo(self):
         rv = self.app.get('/echo?txt=Foo Bar')
         self.assertEqual(rv.status, '200 OK')
         assert '<!DOCTYPE html>' in rv.data
         assert '<form id="getter" method="GET">' in rv.data
         assert '<div id="get_response">You said: Foo Bar</div>' in rv.data
 
+        assert '<form id="postter" method="POST">' in rv.data
+        assert '<div id="post_response"></div>' in rv.data
+        assert 'You posted:' not in rv.data
+
+    def test_post_echo(self):
+        rv = self.app.post('/echo', data=dict(
+            msg='Hello World'
+        ))
+        self.assertEqual(rv.status, '200 OK')
+ 
     def test_other(self):
         rv = self.app.get('/other')
         #print(rv.status)
