@@ -2,6 +2,9 @@ from flask import Flask, render_template, request, session
 import re
 
 app = Flask(__name__)
+app.config.update(dict(
+    SECRET_KEY='development key',
+))
 # app.jinja_env.trim_blocks = True
 # app.jinja_env.lstrip_blocks = True
 
@@ -29,9 +32,9 @@ def post_echo():
 @app.route("/account")
 def account():
     if 'username' in session:
-        return render_template('account.html', data=dict(
-            username=escape(session['username'])
-        ))
+        return render_template('account.html', 
+            username=session['username']
+        )
     return render_template('401.html'), 401
 
 @app.route("/login")
@@ -44,14 +47,15 @@ def post_login():
     password = request.form.get('password')
     if username and password:
         m = re.search(r'^user(\d+)$', username)
-        if m and password == 'pw' + m.groups(1):
+        if m and password == 'pw' + m.group(1):
             session['username'] = username
-            return render_template('login.html', data=dict(
-                success=True
-            ))
-    return render_template('login.html', data=dict(
+            return render_template('login.html', 
+                success=True,
+                username=session['username']
+            )
+    return render_template('login.html', 
         error=True
-    ))
+    )
  
 if __name__ == "__main__":
     app.run( port = 5000, host = '0.0.0.0' )

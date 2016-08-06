@@ -59,18 +59,45 @@ class TestDemo(unittest.TestCase):
         assert 'only accessible' in rv.data
         #print(rv.data)
 
-    def test_login(self):
+    def test_failed_login(self):
         rv = self.app.get('/login')
         assert '<!DOCTYPE html>' in rv.data
         assert '<form id="login" method="POST">' in rv.data
+        assert 'Invalid login' not in rv.data
+        assert 'Welcome' not in rv.data
  
+        rv = self.app.post('/login')
+        #print(rv.data)
+        assert '<!DOCTYPE html>' in rv.data
+        assert '<form id="login" method="POST">' in rv.data
+        assert 'Invalid login' in rv.data
+        assert 'Welcome' not in rv.data
+
         rv = self.app.post('/login', data=dict(
             username='user1',
-            passwrod='pw1'
+            password='bad'
         ))
-        
+        assert '<!DOCTYPE html>' in rv.data
+        assert '<form id="login" method="POST">' in rv.data
+        assert 'Invalid login' in rv.data
+        assert 'Welcome' not in rv.data
 
-    
+    def test_session(self):
+        rv = self.app.post('/login', data=dict(
+            username='user1',
+            password='pw1'
+        ))
+        assert '<!DOCTYPE html>' in rv.data
+        assert '<form id="login" method="POST">' in rv.data
+        #print(rv.data)
+        assert 'Invalid login' not in rv.data
+        assert 'Welcome user1' in rv.data
+
+        rv = self.app.get('/account')
+        self.assertEqual(rv.status, '200 OK')
+        assert 'only accessible' not in rv.data
+        assert '<title>Account of user1</title>' in rv.data
+        assert 'Welcome user1' in rv.data
 
  
     def test_other(self):
