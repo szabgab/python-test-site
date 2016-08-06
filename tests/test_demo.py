@@ -99,6 +99,13 @@ class TestDemo(unittest.TestCase):
         assert '<title>Account of user1</title>' in rv.data
         assert 'Welcome user1' in rv.data
 
+        rv = self.app.get('/logout')
+        assert '<!DOCTYPE html>' in rv.data
+        assert 'Goodby' in rv.data
+
+        rv = self.app.get('/account')
+        self.assertEqual(rv.status, '401 UNAUTHORIZED')
+        assert 'only accessible' in rv.data
  
     def test_other(self):
         rv = self.app.get('/other')

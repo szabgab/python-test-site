@@ -56,6 +56,12 @@ def post_login():
     return render_template('login.html', 
         error=True
     )
+
+@app.route("/logout")
+def logout():
+    session.pop('username', 'None')
+    return render_template('logout.html')
+
  
 if __name__ == "__main__":
     app.run( port = 5000, host = '0.0.0.0' )
