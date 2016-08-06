@@ -1,4 +1,6 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, session
+import re
+
 app = Flask(__name__)
 # app.jinja_env.trim_blocks = True
 # app.jinja_env.lstrip_blocks = True
@@ -21,9 +23,35 @@ def post_echo():
     echo = ''
     txt = request.form.get('msg')
     if txt:
-        echo = "You submitted: " + txt
+        echo = "You posted: " + txt
     return render_template('echo.html', post_echo = echo)
- 
+
+@app.route("/account")
+def account():
+    if 'username' in session:
+        return render_template('account.html', data=dict(
+            username=escape(session['username'])
+        ))
+    return render_template('401.html'), 401
+
+@app.route("/login")
+def get_login():
+    return render_template('login.html')
+
+@app.route("/login", methods=['POST'])
+def post_login():
+    username = request.form.get('username')
+    password = request.form.get('password')
+    if username and password:
+        m = re.search(r'^user(\d+)$', username)
+        if m and password == 'pw' + m.groups(1):
+            session['username'] = username
+            return render_template('login.html', data=dict(
+                success=True
+            ))
+    return render_template('login.html', data=dict(
+        error=True
+    ))
  
 if __name__ == "__main__":
     app.run( port = 5000, host = '0.0.0.0' )

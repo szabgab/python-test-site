@@ -5,9 +5,15 @@ Parts of the site are:
 
 * /     - a pure HTML page where the whole thing is generated on the server.
 * /echo - a form that echos back the text one typed in using either a GET or a POST request
+* Login with username/password using cookies
+* /account - only logged in users can access this page
+* /login   - login form and page
+* /logout
+
+
+
 * An application using a JSON API.
 * Redirection
-* Login with username/password
 * Hidden code set in the form.
 * Hidden code set in the header.
 * Sessions with cookies

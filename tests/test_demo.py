@@ -44,6 +44,34 @@ class TestDemo(unittest.TestCase):
             msg='Hello World'
         ))
         self.assertEqual(rv.status, '200 OK')
+        assert '<!DOCTYPE html>' in rv.data
+        assert '<form id="getter" method="GET">' in rv.data
+        assert '<div id="get_response"></div>' in rv.data
+        assert 'You said:' not in rv.data
+
+        assert '<form id="postter" method="POST">' in rv.data
+        assert '<div id="post_response">You posted: Hello World</div>' in rv.data
+
+
+    def test_account(self):
+        rv = self.app.get('/account')
+        self.assertEqual(rv.status, '401 UNAUTHORIZED')
+        assert 'only accessible' in rv.data
+        #print(rv.data)
+
+    def test_login(self):
+        rv = self.app.get('/login')
+        assert '<!DOCTYPE html>' in rv.data
+        assert '<form id="login" method="POST">' in rv.data
+ 
+        rv = self.app.post('/login', data=dict(
+            username='user1',
+            passwrod='pw1'
+        ))
+        
+
+    
+
  
     def test_other(self):
         rv = self.app.get('/other')
