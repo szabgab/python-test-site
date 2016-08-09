@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, session
+from flask import Flask, render_template, request, session, jsonify
 import re
 
 app = Flask(__name__)
@@ -61,6 +61,10 @@ def post_login():
 def logout():
     session.pop('username', 'None')
     return render_template('logout.html')
+
+@app.route('/api/static')
+def api_static():
+    return jsonify(text="Hello World")
 
  
 if __name__ == "__main__":
