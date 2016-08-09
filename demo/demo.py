@@ -39,7 +39,14 @@ def account():
 
 @app.route("/login")
 def get_login():
-    return render_template('login.html')
+    username = session.get('username', '')
+    success = False
+    if username:
+        success = True
+    return render_template('login.html',
+                username=username,
+                success=success
+    )
 
 @app.route("/login", methods=['POST'])
 def post_login():
