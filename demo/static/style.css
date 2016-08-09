@@ -1,0 +1,12 @@
+body {
+   padding: 0;
+   margin: 0;
+}
+
+.section {
+    border: solid 1px;
+    margin-bottom: 30px;
+    margin-left: 100px;
+    margin-right: 100px;
+    text-align: center;
+}

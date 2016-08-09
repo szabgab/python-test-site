@@ -4,17 +4,27 @@
 
 {% block body %}
 
-<form id="getter" method="GET">
+<div class="section">
+GET: <form id="getter" method="GET">
 <input name="txt" id="txt">
 <input type="submit" value="Send">
 </form>
 <div id="get_response">{{ get_echo }}</div>
+</div>
 
 
-<form id="postter" method="POST">
+<div class="section">
+POST: <form id="postter" method="POST">
 <input name="msg" id="msg">
 <input type="submit" value="Send">
 </form>
 <div id="post_response">{{ post_echo }}</div>
+</div>
+
+<div class="section">
+Ajax GET:
+<input id="txt_field"> <button id="echo_get">Echo</button>
+<div id="response"></div>
+</div>
 
 {% endblock %}
