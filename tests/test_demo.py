@@ -88,8 +88,8 @@ class TestDemo(unittest.TestCase):
             password='pw1'
         ))
         assert '<!DOCTYPE html>' in rv.data
-        assert '<form id="login" method="POST">' in rv.data
         #print(rv.data)
+        assert '<form id="login" method="POST">' not in rv.data
         assert 'Invalid login' not in rv.data
         assert 'Welcome user1' in rv.data
 
