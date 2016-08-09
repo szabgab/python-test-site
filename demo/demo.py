@@ -67,8 +67,16 @@ def api_static():
     return jsonify(text="Hello World")
 
 @app.route('/api/echo')
-def api_echo():
+def api_get_echo():
     msg = request.args.get('msg')
+    if msg:
+        return jsonify(text=msg)
+    else:
+        return jsonify(error="Missing msg"), 400
+
+@app.route("/api/echo", methods=['POST'])
+def api_post_echo():
+    msg = request.form.get('msg')
     if msg:
         return jsonify(text=msg)
     else:

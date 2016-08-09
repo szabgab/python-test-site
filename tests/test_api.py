@@ -15,7 +15,7 @@ class TestDemo(unittest.TestCase):
         d = json.loads(data)
         assert d['text'] == 'Hello World'
 
-    def test_echo(self):
+    def test_echo_get(self):
         rv = self.app.get('/api/echo?msg=Foo Bar')
         self.assertEqual(rv.status, '200 OK')
         data = rv.data.decode("utf-8")
@@ -29,6 +29,24 @@ class TestDemo(unittest.TestCase):
         d = json.loads(data)
         assert d['error'] == 'Missing msg'
         #print(data)
+
+    def test_echo_post(self):
+        rv = self.app.post('/api/echo')
+        self.assertEqual(rv.status, '400 BAD REQUEST')
+        data = rv.data.decode("utf-8")
+        d = json.loads(data)
+        assert d['error'] == 'Missing msg'
+ 
+        rv = self.app.post('/api/echo', data=dict(
+            msg='Buzz Lightyear'
+        ))
+        self.assertEqual(rv.status, '200 OK')
+        data = rv.data.decode("utf-8")
+        #print(data)
+        d = json.loads(data)
+        assert d['text'] == 'Buzz Lightyear'
+
+ 
 
     def test_account(self):
         rv = self.app.get('/api/account')
