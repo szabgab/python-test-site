@@ -5,12 +5,22 @@ Web site to play with various test tools.
 
 Parts of the site are:
 
+Respond with HTML:
+
 * /     - a pure HTML page where the whole thing is generated on the server.
 * /echo - a form that echos back the text one typed in using either a GET or a POST request
 * Login with username/password using cookies. Any userN/pwN is a valid login.
 * /account - only logged in users can access this page
 * /login   - login form and page
 * /logout
+* /secure-login  - the GET request returns an HTML with a form with a hidden value
+           - when the user clicks on the 'Login' button, the server checks if the given id was returned.
+
+API, Respond with JSON:
+
+* /api/static  - a fixed JSON
+* /api/echo    - echo back the given string in a JSON contruct. Both GET and POST are supported.
+* /api/account - only logged in users can access this URL
 
 
 

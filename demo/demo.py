@@ -45,7 +45,7 @@ def get_secure_login():
         # TODO remove success
         return render_template('login.html',
             username=username,
-            success=success
+            success=True
         )
     
     # TODO also add timeout to the code

@@ -197,6 +197,10 @@ class TestDemo(unittest.TestCase):
         assert '<title>Account of user7</title>' in data
         assert 'Welcome user7' in data
 
+        rv = self.app.get('/secure-login')
+        data = rv.data.decode("utf-8") 
+        #print(data)
+        assert 'Welcome user7' in data
 
 
  
