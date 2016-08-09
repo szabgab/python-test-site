@@ -1,5 +1,6 @@
 import demo.demo
 import unittest
+import re
 
 class TestDemo(unittest.TestCase):
     def setUp(self):
@@ -118,6 +119,86 @@ class TestDemo(unittest.TestCase):
         data = rv.data.decode("utf-8") 
         self.assertEqual(rv.status, '401 UNAUTHORIZED')
         assert 'only accessible' in data
+
+
+    def test_failed_secure_login_no_code_expected(self):
+        rv = self.app.post('/secure-login', data=dict(
+            username='user7',
+            password='pw7'
+        ))
+        data = rv.data.decode("utf-8") 
+        assert '<!DOCTYPE html>' in data
+        #print(data)
+        assert 'No code was expected' in data
+        assert 'Welcome user7' not in data
+
+    def test_failed_secure_login_no_code_received(self):
+        rv = self.app.get('/secure-login')
+        data = rv.data.decode("utf-8") 
+        #print(data)
+        assert '<!DOCTYPE html>' in data
+
+        rv = self.app.post('/secure-login', data=dict(
+            username='user7',
+            password='pw7'
+        ))
+        data = rv.data.decode("utf-8") 
+        assert '<!DOCTYPE html>' in data
+        ##print(data)
+        assert 'No code received' in data
+        assert 'Welcome user7' not in data
+
+    def test_failed_secure_login_invalid_code_received(self):
+        rv = self.app.get('/secure-login')
+        data = rv.data.decode("utf-8") 
+        #print(data)
+        m = re.search(r'<input type="hidden" name="code" id="code" value="(\d*)">', data)
+        code = m.group(1);
+        assert re.search('^\d{4}$', code) 
+        assert '<!DOCTYPE html>' in data
+
+        rv = self.app.post('/secure-login', data=dict(
+            username='user7',
+            password='pw7',
+            code='abc'
+        ))
+        data = rv.data.decode("utf-8") 
+        assert '<!DOCTYPE html>' in data
+        #print(data)
+        assert 'Secret code mismatch. Expected {} Received: abc'.format(code) in data
+        assert 'Welcome user7' not in data
+
+
+    def test_secure_session(self):
+        rv = self.app.get('/secure-login')
+        data = rv.data.decode("utf-8") 
+        #print(data)
+        m = re.search(r'<input type="hidden" name="code" id="code" value="(\d*)">', data)
+        code = m.group(1);
+        assert re.search('^\d{4}$', code) 
+
+
+        rv = self.app.post('/secure-login', data=dict(
+            username='user7',
+            password='pw7',
+            code=code
+        ))
+        data = rv.data.decode("utf-8") 
+        assert '<!DOCTYPE html>' in data
+        #print(data)
+        assert 'Welcome user7' in data
+
+    
+        rv = self.app.get('/account')
+        data = rv.data.decode("utf-8") 
+        self.assertEqual(rv.status, '200 OK')
+        data = rv.data.decode("utf-8") 
+        assert 'only accessible' not in data
+        assert '<title>Account of user7</title>' in data
+        assert 'Welcome user7' in data
+
+
+
  
     def test_other(self):
         rv = self.app.get('/other')
