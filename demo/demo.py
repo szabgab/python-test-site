@@ -74,6 +74,12 @@ def api_echo():
     else:
         return jsonify(error="Missing msg"), 400
 
+@app.route('/api/account')
+def api_account():
+    if 'username' in session:
+        return jsonify(username=session['username'])
+    return jsonify(error='Not logged in'), 401
+
  
 if __name__ == "__main__":
     app.run( port = 5000, host = '0.0.0.0' )
