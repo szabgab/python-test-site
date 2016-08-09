@@ -1,3 +1,5 @@
+###Status
+[![Build Status](https://travis-ci.org/szabgab/python-test-site.png)](https://travis-ci.org/szabgab/python-test-site)
 
 Web site to play with various test tools.
 
