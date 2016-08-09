@@ -26,8 +26,8 @@ Parts of the site are:
 Setup for development
 ----------------------
 ```
-$ virtualenv venv
-$ source venv/bin/activate
+$ virtualenv venv2 -p /usr/bin/python2
+$ source venv2/bin/activate
 
 $ pip install --editable .
 
@@ -36,5 +36,15 @@ $ export FLASK_DEBUG=1
 $ flask run --host 0.0.0.0 --port 5000
 
 $ python -m unittest discover
+```
+
+
+```
+virtualenv venv3 -p /usr/bin/python3
+source venv3/bin/activate
+pip install --editable .
+
+$ python3 -m unittest discover
+
 ```
 
