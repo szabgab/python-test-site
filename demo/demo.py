@@ -66,6 +66,14 @@ def logout():
 def api_static():
     return jsonify(text="Hello World")
 
+@app.route('/api/echo')
+def api_echo():
+    msg = request.args.get('msg')
+    if msg:
+        return jsonify(text=msg)
+    else:
+        return jsonify(error="Missing msg"), 400
+
  
 if __name__ == "__main__":
     app.run( port = 5000, host = '0.0.0.0' )
