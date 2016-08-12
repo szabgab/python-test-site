@@ -2,3 +2,4 @@
 /venv3/
 /demo.egg-info/
 *.pyc
+/jmeter.log

@@ -36,25 +36,56 @@ API, Respond with JSON:
 Setup for development
 ----------------------
 ```
-$ virtualenv venv2 -p /usr/bin/python2
-$ source venv2/bin/activate
+virtualenv venv2 -p /usr/bin/python2
+source venv2/bin/activate
 
-$ pip install --editable .
+pip install --editable .
 
-$ export FLASK_APP=demo.demo
-$ export FLASK_DEBUG=1
-$ flask run --host 0.0.0.0 --port 5000
-
-$ python -m unittest discover
+export FLASK_APP=demo.demo
+export FLASK_DEBUG=1
+flask run --host 0.0.0.0 --port 5000
 ```
 
+Alternative running
+
+```
+pip install gunicorn
+gunicorn -w 4 -b 0.0.0.0:5000 demo.demo:app
+```
+
+
+For Python 3 start with:
 
 ```
 virtualenv venv3 -p /usr/bin/python3
-source venv3/bin/activate
-pip install --editable .
+```
 
-$ python3 -m unittest discover
+
+Testing
+------------
 
 ```
+python -m unittest discover
+```
+
+or
+
+```
+python3 -m unittest discover
+```
+
+JMeter
+-----------
+Assuming the server is running on 127.0.0.1:5000 there are a number of JMX files
+one can use to test the "application".
+
+In the `jmeter/` directory:
+
+demo_main_page.jmx
+
+demo_login.jmx      using demo_users.csv
+demo_mixer.jmx
+demo_secure_login.jmx
+
+
 
