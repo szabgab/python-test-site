@@ -4,6 +4,7 @@ python:
   - "3.4"
   - "3.5"
 install:
+  - pip install selenium
   - pip install .
   - sudo apt-get install phantomjs
 script: python -m unittest discover
