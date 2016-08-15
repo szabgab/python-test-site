@@ -59,7 +59,7 @@ class TestMain(unittest.TestCase):
         driver.close()
 
         #pid = check_output(["ps", 'axuw'])
-        print(pid)
+        #print(pid)
         #os.kill(pid)
 # vim: expandtab
 
