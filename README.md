@@ -88,4 +88,16 @@ demo_mixer.jmx
 demo_secure_login.jmx
 
 
+Selenium on OSX
+----------------
+
+
+```
+virtualenv osx2
+source osx2/bin/activate
+pip install selenium
+```
+
+Download chromedriver from https://sites.google.com/a/chromium.org/chromedriver/
+Unzip it and put the chromedriver into osx2/bin/
 
