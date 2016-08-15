@@ -5,6 +5,6 @@ python:
   - "3.5"
 install:
   - pip install selenium
-  - pip install .
+  - pip install --editable .
   - sudo apt-get install phantomjs
 script: python -m unittest discover
