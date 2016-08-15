@@ -5,4 +5,5 @@ python:
   - "3.5"
 install:
   - pip install .
+  - apt-get install phantomjs
 script: python -m unittest discover

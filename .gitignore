@@ -5,3 +5,4 @@
 /demo.egg-info/
 *.pyc
 /jmeter.log
+/ghostdriver.log
